@@ -26,7 +26,7 @@ export class SponsoredCallDtoValidatorPipe implements PipeTransform {
     const result = await this.schema.safeParseAsync(value);
 
     if (!result.success) {
-      throw new SponsoredCallValidationError('Validation failed');
+      throw new SponsoredCallValidationError(`Validation failed ${result.error.message}`);
     }
 
     if (!isCreateProxyWithNonceCalldata(result.data.data)) {

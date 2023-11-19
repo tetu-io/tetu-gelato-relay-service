@@ -32,13 +32,18 @@ export const SponsoredCallSchema = z
       });
     };
 
+    return {
+      ...values,
+      limitAddresses: [to],
+    };
+
     // `execTransaction`
-    if (isValidExecTransactionCall(to, data)) {
-      return {
-        ...values,
-        limitAddresses: [to],
-      };
-    }
+    // if (isValidExecTransactionCall(to, data)) {
+    //   return {
+    //     ...values,
+    //     limitAddresses: [to],
+    //   };
+    // }
 
     // `multiSend`
     // if (isValidMultiSendCall(chainId, to, data)) {
@@ -62,8 +67,8 @@ export const SponsoredCallSchema = z
     //   };
     // }
 
-    setError(
-      'Only Tetu transactions not to self can be relayed',
-    );
-    return z.NEVER;
+    // setError(
+    //   'Only Tetu transactions not to self can be relayed',
+    // );
+    // return z.NEVER;
   });
