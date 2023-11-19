@@ -3,6 +3,8 @@ import { ConfigService } from '@nestjs/config';
 
 import { mockNetworkService } from '../network/__tests__/test.network.module';
 import { GatewaySafeInfoService } from './gateway.safe-info.service';
+import { AxiosNetworkService } from '../network/axios.network.service';
+import axios from 'axios';
 
 describe('GatewaySafeInfoService', () => {
   beforeEach(() => {
@@ -19,11 +21,27 @@ describe('GatewaySafeInfoService', () => {
   );
 
   describe('isSafeContract', () => {
-    it('should return true if the safe exists', async () => {
-      mockNetworkService.get.mockImplementation(() => Promise.resolve());
 
-      const chainId = '5';
+    it.skip('should return true for E2E test', async () => {
+      const netService = new AxiosNetworkService(axios.create());
+      const safeInfoService = new GatewaySafeInfoService(
+        mockConfigService,
+        netService,
+      );
+
+      const chainId = '11155111';
+      const address = '0xd203cC5AfDD6197f8c81FEA2a315416Df344478d';
+
+      const result = await safeInfoService.isSafeContract(chainId, address);
+
+      expect(result).toBe(true);
+    });
+
+    it('should return true if the safe exists', async () => {
+      const chainId = '11155111';
       const address = faker.finance.ethereumAddress();
+
+      mockNetworkService.post.mockImplementation(() => Promise.resolve(JSON.parse(`{"data": {"data":{"itemMetaEntities":[{"id":"${address}"}]}}}`)));
 
       const result = await safeInfoService.isSafeContract(chainId, address);
 
@@ -31,9 +49,9 @@ describe('GatewaySafeInfoService', () => {
     });
 
     it('should return false if the safe does not exist', async () => {
-      mockNetworkService.get.mockImplementation(() => Promise.reject());
+      mockNetworkService.post.mockImplementation(() => Promise.reject());
 
-      const chainId = '5';
+      const chainId = '11155111';
       const address = faker.finance.ethereumAddress();
 
       const result = await safeInfoService.isSafeContract(chainId, address);

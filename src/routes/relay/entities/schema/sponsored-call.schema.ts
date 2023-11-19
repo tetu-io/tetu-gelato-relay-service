@@ -41,29 +41,29 @@ export const SponsoredCallSchema = z
     }
 
     // `multiSend`
-    if (isValidMultiSendCall(chainId, to, data)) {
-      const safeAddress = getSafeAddressFromMultiSend(data);
-      if (!safeAddress) {
-        setError('Cannot decode Safe address from `multiSend` transaction');
-        return z.NEVER;
-      }
-
-      return {
-        ...values,
-        limitAddresses: [safeAddress],
-      };
-    }
+    // if (isValidMultiSendCall(chainId, to, data)) {
+    //   const safeAddress = getSafeAddressFromMultiSend(data);
+    //   if (!safeAddress) {
+    //     setError('Cannot decode Safe address from `multiSend` transaction');
+    //     return z.NEVER;
+    //   }
+    //
+    //   return {
+    //     ...values,
+    //     limitAddresses: [safeAddress],
+    //   };
+    // }
 
     // `createProxyWithNonce`
-    if (isValidCreateProxyWithNonceCall(chainId, to, data)) {
-      return {
-        ...values,
-        limitAddresses: getOwnersFromCreateProxyWithNonce(data),
-      };
-    }
+    // if (isValidCreateProxyWithNonceCall(chainId, to, data)) {
+    //   return {
+    //     ...values,
+    //     limitAddresses: getOwnersFromCreateProxyWithNonce(data),
+    //   };
+    // }
 
     setError(
-      'Only Safe creation or (batched) Safe transactions not to self can be relayed',
+      'Only Tetu transactions not to self can be relayed',
     );
     return z.NEVER;
   });
