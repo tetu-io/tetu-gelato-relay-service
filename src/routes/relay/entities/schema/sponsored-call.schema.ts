@@ -2,27 +2,22 @@ import { z } from 'zod';
 
 import { AddressSchema } from '../../../common/schema/address.schema';
 import { ChainIdSchema } from '../../../common/schema/chain-id.schema';
-import {
-  isValidCreateProxyWithNonceCall,
-  getOwnersFromCreateProxyWithNonce,
-} from './transactions/create-proxy-with-nonce';
-import { isValidExecTransactionCall } from './transactions/exec-transaction';
-import {
-  isValidMultiSendCall,
-  getSafeAddressFromMultiSend,
-} from './transactions/multi-send';
 
 export const SponsoredCallSchema = z
   .object({
     chainId: ChainIdSchema,
+    from: AddressSchema,
     to: AddressSchema,
+    userNonce: z.string(),
+    userDeadline: z.string(),
+    signature: z.string(),
     data: z.string(),
     gasLimit: z.optional(z.string().regex(/^\d+$/)).transform((value) => {
       return value ? BigInt(value) : undefined;
     }),
   })
-  .transform(async (values, ctx) => {
-    const { chainId, to, data } = values;
+  .transform(async(values, ctx) => {
+    const { chainId, from, to, data } = values;
 
     const setError = (message: string) => {
       ctx.addIssue({
@@ -34,7 +29,8 @@ export const SponsoredCallSchema = z
 
     return {
       ...values,
-      limitAddresses: [to],
+      limitAddresses: [from],
+      to: to,
     };
 
     // `execTransaction`

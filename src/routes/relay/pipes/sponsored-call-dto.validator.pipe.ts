@@ -1,9 +1,6 @@
 import { Inject, Injectable, PipeTransform } from '@nestjs/common';
 
-import {
-  ISafeInfoService,
-  SafeInfoService,
-} from '../../../datasources/safe-info/safe-info.service.interface';
+import { ISafeInfoService, SafeInfoService } from '../../../datasources/safe-info/safe-info.service.interface';
 import { SponsoredCallSchema } from '../entities/schema/sponsored-call.schema';
 import { isCreateProxyWithNonceCalldata } from '../entities/schema/transactions/create-proxy-with-nonce';
 import { SponsoredCallDto } from '../entities/sponsored-call.entity';
@@ -20,7 +17,8 @@ export class SponsoredCallDtoValidatorPipe implements PipeTransform {
 
   constructor(
     @Inject(SafeInfoService) private safeInfoService: ISafeInfoService,
-  ) {}
+  ) {
+  }
 
   async transform<T>(value: T): Promise<SponsoredCallDto> {
     const result = await this.schema.safeParseAsync(value);
@@ -30,15 +28,14 @@ export class SponsoredCallDtoValidatorPipe implements PipeTransform {
     }
 
     if (!isCreateProxyWithNonceCalldata(result.data.data)) {
-      const isSafeContract = await this.safeInfoService.isSafeContract(
+      const isCallValidContract = await this.safeInfoService.isValidContract(
         result.data.chainId,
-        // Safe transactions only every have one limit address
-        result.data.limitAddresses[0],
+        result.data.to.toLowerCase(),
       );
 
-      if (!isSafeContract) {
+      if (!isCallValidContract) {
         throw new SponsoredCallValidationError(
-          'Safe address is not a valid Safe contract',
+          'This contract does not support sponsored transactions.',
         );
       }
     }

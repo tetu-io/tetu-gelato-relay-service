@@ -32,7 +32,7 @@ describe('GatewaySafeInfoService', () => {
       const chainId = '11155111';
       const address = '0xd203cC5AfDD6197f8c81FEA2a315416Df344478d';
 
-      const result = await safeInfoService.isSafeContract(chainId, address);
+      const result = await safeInfoService.isValidContract(chainId, address);
 
       expect(result).toBe(true);
     });
@@ -43,7 +43,7 @@ describe('GatewaySafeInfoService', () => {
 
       mockNetworkService.post.mockImplementation(() => Promise.resolve(JSON.parse(`{"data": {"data":{"itemMetaEntities":[{"id":"${address}"}]}}}`)));
 
-      const result = await safeInfoService.isSafeContract(chainId, address);
+      const result = await safeInfoService.isValidContract(chainId, address);
 
       expect(result).toBe(true);
     });
@@ -54,7 +54,7 @@ describe('GatewaySafeInfoService', () => {
       const chainId = '11155111';
       const address = faker.finance.ethereumAddress();
 
-      const result = await safeInfoService.isSafeContract(chainId, address);
+      const result = await safeInfoService.isValidContract(chainId, address);
 
       expect(result).toBe(false);
     });

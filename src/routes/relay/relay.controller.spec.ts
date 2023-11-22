@@ -131,7 +131,7 @@ describe('RelayController', () => {
   describe('/v1/relay (POST)', () => {
     describe('Relayer', () => {
       async function testSuccessfulSafeTx(to: string, data: string) {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -654,7 +654,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 500 if the relayer throws', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -685,7 +685,7 @@ describe('RelayController', () => {
 
     describe('Validation', () => {
       it('should return a 422 error when the chainId is invalid', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false,
         );
 
@@ -710,7 +710,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the to address is invalid', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false,
         );
 
@@ -735,7 +735,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is not an execTransaction, multiSend or createProxyWithNonce call', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -755,7 +755,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is an execTransaction to self', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -778,7 +778,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is an ERC-20 transfer execTransaction to self', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -809,7 +809,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is an execTransaction to a non-Safe', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false, // Not a Safe
         );
 
@@ -834,7 +834,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend containing no transactions', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false,
         );
 
@@ -856,7 +856,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend containing non-execTransaction transactions', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false,
         );
 
@@ -892,7 +892,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend with execTransaction(s) to self', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -940,7 +940,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend with execTransactions of varying Safes', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false,
         );
 
@@ -986,7 +986,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend from an invalid MultiSend deployment', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1026,7 +1026,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the data is a multiSend to a non-Safe', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           false, // Not a Safe
         );
 
@@ -1124,7 +1124,7 @@ describe('RelayController', () => {
       });
 
       it('should return a 422 error when the gasLimit is invalid', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1152,7 +1152,7 @@ describe('RelayController', () => {
 
     describe('Rate limiting', () => {
       it('should return a 429 if the rate limit is reached', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1190,7 +1190,7 @@ describe('RelayController', () => {
       });
 
       it('should not rate limit the same addresses on different chains', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1241,7 +1241,7 @@ describe('RelayController', () => {
       });
 
       it('should handle non-checksummed addresses', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1270,7 +1270,7 @@ describe('RelayController', () => {
       });
 
       it('should increment the relay limit if limit has not been reached', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 
@@ -1337,7 +1337,7 @@ describe('RelayController', () => {
       });
 
       it('should not return negative limits more requests were made than the limit', async () => {
-        (mockSafeInfoService.isSafeContract as jest.Mock).mockResolvedValue(
+        (mockSafeInfoService.isValidContract as jest.Mock).mockResolvedValue(
           true,
         );
 

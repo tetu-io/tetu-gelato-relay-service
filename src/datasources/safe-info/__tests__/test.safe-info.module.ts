@@ -6,7 +6,7 @@ import {
 } from '../safe-info.service.interface';
 
 const safeInfoService: ISafeInfoService = {
-  isSafeContract: jest.fn(),
+  isValidContract: jest.fn(),
 };
 
 export const mockSafeInfoService = jest.mocked(safeInfoService);
