@@ -8,6 +8,8 @@ services:
 
   web:
     build: .
+    env_file:
+      - .env
     tty: true
     environment:
       REDIS_HOST: redis
