@@ -2,18 +2,21 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ethers } from 'ethers';
 
-import {
-  CacheService,
-  ICacheService,
-} from '../../../datasources/cache/cache.service.interface';
+import { CacheService, ICacheService } from '../../../datasources/cache/cache.service.interface';
+
+const GLOBAL_LIMIT_CACHE_KEY = 'globalLimit';
 
 @Injectable()
 export class RelayLimitService {
+
+
   // Time to limit in seconds
   private readonly ttl: number;
 
-  // Number of relay requests per ttl
+  // Number of relay requests by account per ttl
   private readonly limit: number;
+  // Number of relay global requests per ttl
+  private readonly globalLimit: number;
 
   constructor(
     private readonly configService: ConfigService,
@@ -21,6 +24,7 @@ export class RelayLimitService {
   ) {
     this.ttl = this.configService.getOrThrow<number>('relay.ttl');
     this.limit = this.configService.getOrThrow<number>('relay.limit');
+    this.globalLimit = this.configService.getOrThrow<number>('relay.globalLimit');
   }
 
   /**
@@ -44,7 +48,7 @@ export class RelayLimitService {
 
     return typeof attempts === 'string'
       ? // If attempts is not a number, return default
-        Number(attempts) || DEFAULT_ATTEMPTS
+      Number(attempts) || DEFAULT_ATTEMPTS
       : DEFAULT_ATTEMPTS;
   }
 
@@ -69,12 +73,17 @@ export class RelayLimitService {
   ): Promise<{
     limit: number;
     remaining: number;
+    globalLimit: number;
+    globalRemaining: number;
   }> {
     const attempts = await this.getCachedAttempts(chainId, address);
+    const attemptsGlobal = await this.getCachedAttempts(chainId, GLOBAL_LIMIT_CACHE_KEY);
 
     return {
       limit: this.limit,
       remaining: Math.max(0, this.limit - attempts),
+      globalLimit: this.globalLimit,
+      globalRemaining: Math.max(0, this.globalLimit - attemptsGlobal),
     };
   }
 
@@ -88,7 +97,8 @@ export class RelayLimitService {
     const attempts = await Promise.all(
       addresses.map((address) => this.getCachedAttempts(chainId, address)),
     );
-    return attempts.every((attempts) => attempts < this.limit);
+    const globalAttempts = await this.getCachedAttempts(chainId, GLOBAL_LIMIT_CACHE_KEY);
+    return attempts.every((attempts) => attempts < this.limit) && globalAttempts < this.globalLimit;
   }
 
   /**
@@ -98,8 +108,11 @@ export class RelayLimitService {
     chainId: string,
     addresses: Array<string>,
   ): Promise<void> {
+    const currentGlobalAttempts = await this.getCachedAttempts(chainId, GLOBAL_LIMIT_CACHE_KEY);
+    await this.setCachedAttempts(chainId, GLOBAL_LIMIT_CACHE_KEY, currentGlobalAttempts + 1);
+
     await Promise.allSettled(
-      addresses.map(async (address) => {
+      addresses.map(async(address) => {
         const currentAttempts = await this.getCachedAttempts(chainId, address);
         const incremented = currentAttempts + 1;
         return this.setCachedAttempts(chainId, address, incremented);

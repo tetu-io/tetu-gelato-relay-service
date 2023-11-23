@@ -18,13 +18,14 @@ export class RelayController {
   constructor(
     private readonly relayService: RelayService,
     private readonly relayLimitService: RelayLimitService,
-  ) {}
+  ) {
+  }
 
   @Post()
   @UseFilters(SponsoredCallValidationExceptionFilter)
   sponsoredCall(
     @Body(SponsoredCallDtoValidatorPipe)
-    sponsoredCallDto: SponsoredCallDto,
+      sponsoredCallDto: SponsoredCallDto,
   ): Promise<RelayResponse> {
     return this.relayService.sponsoredCall(sponsoredCallDto);
   }
@@ -32,12 +33,14 @@ export class RelayController {
   @Get(':chainId/:address')
   getRelayLimit(
     @Param('chainId', new ZodValidationPipe(ChainIdSchema))
-    chainId: string,
+      chainId: string,
     @Param('address', new ZodValidationPipe(AddressSchema))
-    address: string,
+      address: string,
   ): Promise<{
-    remaining: number;
     limit: number;
+    remaining: number;
+    globalLimit: number;
+    globalRemaining: number;
   }> {
     return this.relayLimitService.getRelayLimit(chainId, address);
   }

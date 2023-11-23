@@ -12,6 +12,7 @@ export default () => ({
   relay: {
     ttl: process.env.THROTTLE_TTL ? +process.env.THROTTLE_TTL : 60, // 1 minute in seconds
     limit: process.env.THROTTLE_LIMIT ? +process.env.THROTTLE_LIMIT : 20,
+    globalLimit: process.env.GLOBAL_THROTTLE_LIMIT ? +process.env.GLOBAL_THROTTLE_LIMIT : 5,
   },
   gelato: {
     apiKey: {
