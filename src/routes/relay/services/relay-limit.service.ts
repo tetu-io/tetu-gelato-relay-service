@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 
 import { CacheService, ICacheService } from '../../../datasources/cache/cache.service.interface';
 
-const GLOBAL_LIMIT_CACHE_KEY = 'globalLimit';
+const GLOBAL_LIMIT_CACHE_KEY = '0x0000000000000000000000000000000000000001';
 
 @Injectable()
 export class RelayLimitService {
