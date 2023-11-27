@@ -27,11 +27,34 @@ const WHITELISTED = new Map<string, Set<string>>([
     '0x5256B9276974B12501e3caE24f877357ceBddDD2'.toLowerCase(), // dexterityToken
   ]),
   ],
+  [
+    SupportedChainId.MUMBAI, new Set<string>([
+    '0x34733FE4015D93eF3bf33E9bEdd19ABF461B046B'.toLowerCase(), // controller
+    '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // gameToken
+    // '0x0c929007B4808C26cc22Ffea8e2a3CC3628f4230'.toLowerCase(), // minter
+    // '0xB7224fd8aE7d4cfd8d061B0e6C8478B613c623c6'.toLowerCase(), // chamberController
+    '0x8425C888ec69fBeB7D60bBfDaBDc21075c8328E1'.toLowerCase(), // reinforcementController
+    '0x665c5dD62D4550071102E75c1b393Ed10B849Dc1'.toLowerCase(), // dungeonFactory
+    // '0xBCD8a872C034C66D05804737f17e805f1469167b'.toLowerCase(), // fightCalculator
+    // '0xF0C3DE6938F0B3CA9BCf38FebFD61c61b1513F41'.toLowerCase(), // itemCalculator
+    // '0x2740494b2e3bd3DD2A0C7E5774D40cF3675Fc287'.toLowerCase(), // oracle
+    // '0x72e98e4F7e6ae763D380861F5743e4Cd0Cab1064'.toLowerCase(), // statController
+    // '0x438aD6D0c2557D22A6b1e802a4363F338fa05D47'.toLowerCase(), // storyController
+    // '0x9C0C9D0151E32678c8Ba805D3953feE1EAebDe8f'.toLowerCase(), // treasury
+    // '0xb1D0f4e4DCadc6032E305a2e5FFd46a12a20ab56'.toLowerCase(), // statReader
+    // '0x85258DD38e9a36c2DCc91C5Ecc66F2F24d5b128f'.toLowerCase(), // multicall
+    '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // magicToken
+    '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // strengthToken
+    '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // dexterityToken
+  ]),
+  ],
 ]);
 
 
 const SUBGRAPHS = new Map<string, string>([
   [SupportedChainId.SEPOLIA, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-sepolia'],
+  // [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'], // todo move back after creating
+  [SupportedChainId.MUMBAI, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-mumbai'],
 ]);
 
 type SUBGRAPH_RESULT = {
