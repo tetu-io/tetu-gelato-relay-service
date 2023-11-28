@@ -46,6 +46,8 @@ const WHITELISTED = new Map<string, Set<string>>([
     '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // magicToken
     '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // strengthToken
     '0x1c78d146c4cE728184eFcBd24b6958C40eD019a6'.toLowerCase(), // dexterityToken
+    '0x5A81e1Ed2b857c67907f07823599AD21a4946f08'.toLowerCase(), // sacra faucet
+    '0xa56e71478E23a60EE6f3202ebe5bAdb9850045d4'.toLowerCase(), // pawnshop
   ]),
   ],
 ]);
