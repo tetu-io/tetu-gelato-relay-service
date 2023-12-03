@@ -55,8 +55,7 @@ const WHITELISTED = new Map<string, Set<string>>([
 
 const SUBGRAPHS = new Map<string, string>([
   [SupportedChainId.SEPOLIA, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-sepolia'],
-  // [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'], // todo move back after creating
-  [SupportedChainId.MUMBAI, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-mumbai'],
+  [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'],
 ]);
 
 type SUBGRAPH_RESULT = {
