@@ -50,14 +50,39 @@ const WHITELISTED = new Map<string, Set<string>>([
     '0xa56e71478E23a60EE6f3202ebe5bAdb9850045d4'.toLowerCase(), // pawnshop
   ]),
   ],
+  [
+    SupportedChainId.OP_SEPOLIA, new Set<string>([
+    '0xCF66857b468740d6dbF9cE11929A9c03DDA12988'.toLowerCase(), // controller
+    '0xb8bA82F19A9Be6CbF6DAF9BF4FBCC5bDfCF8bEe6'.toLowerCase(), // gameToken
+    // '0x7E59478Abb9DF4682D4c4De6140104EeD83243ad'.toLowerCase(), // minter
+    // '0xC423D7e3e1B7caF1AA5ce58EA0f3A91427Fd47ae'.toLowerCase(), // chamberController
+    '0xA60205802E1B5C6EC1CAFA3cAcd49dFeECe05AC9'.toLowerCase(), // reinforcementController
+    '0xd0C1378c177E961D96c06b0E8F6E7841476C81Ef'.toLowerCase(), // dungeonFactory
+    // '0xFE700D523094Cc6C673d78F1446AE0743C89586E'.toLowerCase(), // fightCalculator
+    // '0xC3B5d80E4c094B17603Ea8Bb15d2D31ff5954aAE'.toLowerCase(), // itemCalculator
+    // '0x6d85966b5280Bfbb479E0EBA00Ac5ceDfe8760D3'.toLowerCase(), // oracle
+    // '0x00aE29E31748898B8B404b4DcF076738F68439d4'.toLowerCase(), // statController
+    // '0x3bDbd2Ed1A214Ca4ba4421ddD7236ccA3EF088b6'.toLowerCase(), // storyController
+    // '0xd1fD04d17BEb5D06a1af9D08fb3a8857B252e56C'.toLowerCase(), // treasury
+    // '0x08d7607b2FD46ae255040014a39CDC2094e55901'.toLowerCase(), // statReader
+    // '0x75e1e98650c119c4E3dCE3070CE6A5397Ed70c6a'.toLowerCase(), // multicall
+    '0x6678814c273d5088114B6E40cC49C8DB04F9bC29'.toLowerCase(), // magicToken
+    '0x286c02C93f3CF48BB759A93756779A1C78bCF833'.toLowerCase(), // strengthToken
+    '0x6B2e0fACD2F2A8f407aC591067Ac06b5d29247E4'.toLowerCase(), // dexterityToken
+    '0xbDFb56526F11ebf358177466Dbb4264209f917a4'.toLowerCase(), // pawnshop
+    '0xD6015a8a3C4d065e9dC54ca53e6A2F7f96556ea7'.toLowerCase(), // sacra faucet
+    '0xdF837f0327Bbf85b066c400f17b2B2727F94cb2f'.toLowerCase(), // OP_SEPOLIA_TEST_FAUCET_MAGIC
+    '0x35B0329118790B8c8FC36262812D92a4923C6795'.toLowerCase(), // OP_SEPOLIA_TEST_FAUCET_STRENGTH
+    '0x0A0846c978a56D6ea9D2602eeb8f977B21F3207F'.toLowerCase(), // OP_SEPOLIA_TEST_FAUCET_DEXTERITY
+  ]),
+  ],
 ]);
 
 
 const SUBGRAPHS = new Map<string, string>([
-  // [SupportedChainId.SEPOLIA, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-sepolia'],
   [SupportedChainId.SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-staging-sepolia'],
-  // [SupportedChainId.MUMBAI, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-mumbai'],
   [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'],
+  [SupportedChainId.OP_SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-op-sepolia'],
 ]);
 
 type SUBGRAPH_RESULT = {
