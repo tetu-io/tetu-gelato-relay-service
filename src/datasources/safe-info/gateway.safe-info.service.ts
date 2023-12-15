@@ -80,7 +80,8 @@ const WHITELISTED = new Map<string, Set<string>>([
 
 
 const SUBGRAPHS = new Map<string, string>([
-  [SupportedChainId.SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-staging-sepolia'],
+  // [SupportedChainId.SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-staging-sepolia'],
+  [SupportedChainId.SEPOLIA, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-sepolia'],
   [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'],
   [SupportedChainId.OP_SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-op-sepolia'],
 ]);
