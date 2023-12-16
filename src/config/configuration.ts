@@ -21,5 +21,10 @@ export default () => ({
       [SupportedChainId.OP_SEPOLIA]: process.env.GELATO_OP_SEPOLIA_CHAIN_API_KEY,
     },
   },
+  subgraph: {
+    [SupportedChainId.SEPOLIA]: process.env.SEPOLIA_SUBGRAPH_URL || 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-staging-sepolia',
+    [SupportedChainId.MUMBAI]: process.env.MUMBAI_SUBGRAPH_URL || 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test',
+    [SupportedChainId.OP_SEPOLIA]: process.env.OP_SEPOLIA_SUBGRAPH_URL || 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-op-sepolia',
+  },
   gatewayUrl: process.env.GATEWAY_URL || 'https://safe-client.safe.global',
 });

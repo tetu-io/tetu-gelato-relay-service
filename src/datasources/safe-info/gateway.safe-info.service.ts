@@ -78,14 +78,6 @@ const WHITELISTED = new Map<string, Set<string>>([
   ],
 ]);
 
-
-const SUBGRAPHS = new Map<string, string>([
-  // [SupportedChainId.SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-staging-sepolia'],
-  [SupportedChainId.SEPOLIA, 'https://api.thegraph.com/subgraphs/name/tetu-io/tetu-game-sepolia'],
-  [SupportedChainId.MUMBAI, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-mumbai-test'],
-  [SupportedChainId.OP_SEPOLIA, 'https://graph.tetu.io/subgraphs/name/tetu-io/sacra-op-sepolia'],
-]);
-
 type SUBGRAPH_RESULT = {
   data: {
     itemMetaEntities: { id: string }[];
@@ -122,7 +114,7 @@ query ValidContract {
 }
 `;
 
-    const url = SUBGRAPHS.get(chainId);
+    const url = this.configService.getOrThrow<number>(`subgraph.${chainId}`)
     if (!url) {
       throw new Error(`No subgraph for chainId ${chainId}`);
     }
