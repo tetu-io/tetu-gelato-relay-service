@@ -114,7 +114,7 @@ query ValidContract {
 }
 `;
 
-    const url = this.configService.getOrThrow<number>(`subgraph.${chainId}`)
+    const url = this.configService.getOrThrow<string>(`subgraph.${chainId}`)
     if (!url) {
       throw new Error(`No subgraph for chainId ${chainId}`);
     }
